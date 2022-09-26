@@ -26,39 +26,44 @@
 
   .c-item {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
     justify-content: center;
     align-items: center;
     text-align: center;
     font-size: 12px;
+    height: 100%;
+    line-height: 1;
   }
 
   .Excellent {
-    background-color: rgba(255, 0, 0, 0.232);
+    background-color: #FDECF5;
   }
 
   .Auspicious {
-    background-color: rgba(255, 255, 0, 0.265);
+    background-color: #FFFBDE;
   }
 
   .Fair {
-    background-color: rgba(0, 128, 0, 0.252);
+    background-color: #E2EFDC;
   }
 
   .Inauspicious {
-    background-color: rgba(128, 128, 128, 0.25);
+    background-color: #F2F2F2;
   }
 
   .day-element {
-    grid-row: span 2;
+    /* grid-row: span 2; */
   }
 
   .c-child-items {
-    border-top: 1px solid grey;
-    grid-column: span 3;
+    /* border-top: 1px solid grey; */
+    /* grid-column: span 3; */
     text-align: end;
     padding-right: 0.3rem;
-    padding-top: 0.3rem;
+    font-size: 8px !important;
+    height: 100%;
+    padding-top: 1.6rem;
 }
 
 .c-top-container, .c-container {
@@ -68,7 +73,7 @@
   /* | Sun | Mon | Tue | Wed | Thu | Fri | Sat  */
   .day-of-week-header-cell {
     color: var(--text-color-primary);
-    background-color: #e8e8e8;
+    /* background-color: #e8e8e8; */
     padding: var(--space-md) 0;
     min-width: 0;
     overflow: hidden;
@@ -80,10 +85,13 @@
   .calendar-header {
     display: flex;
     justify-content: space-between;
+    width: 75%;
     align-items: center;
-    background-color: skyblue;
+    /* background-color: #00FFFF; */
     padding: 0.2rem;
-    font-size: 12px;
+    font-size: 12px !important;
+    font-weight: bold;
+    text-transform: uppercase;
   }
 
   .c-box {
@@ -105,19 +113,23 @@
   }
   
   .c-rating-1 {
-    background-color: rgba(255, 0, 0, 0.232) !important;
+    background-color: #FDECF5 !important;
+    border: 1px solid #991B73;
   }
 
   .c-rating-2 {
-    background-color: rgba(255, 255, 0, 0.265) !important;
+    background-color: #FFFBDE !important;
+    border: 1px solid #C0B14D;
   }
 
   .c-rating-3 {
-    background-color: rgba(0, 128, 0, 0.252) !important;
+    background-color: #E2EFDC !important;
+    border: 1px solid #34A336;
   }
 
   .c-rating-4 {
-    background-color: rgba(128, 128, 128, 0.25) !important;
+    background-color: #F2F2F2 !important;
+    border: 1px solid #484746;
   }
 
   .c-rating > * {
@@ -134,7 +146,7 @@
     background-color: white;
     display: flex;
     /* place-items: center; */
-    border: 1px solid grey;
+    /* border: 1px solid grey; */
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -185,16 +197,21 @@
     padding-bottom: 0;
     flex-shrink: 0;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 50px;
   }
 
   .lunar {
-    font-size: 8px;
-    color: red;
+    font-size: 16px;
+    color: #D90000;
+  }
+
+  .addon {
+    text-align: end;
+    padding-right: 0.3rem;
   }
 
   .Open, .Danger, .Success, .Initiate, .Remove, .Stable {
-    color: red;
+    color: #D90000;
   }
 
   .calendar-container {
@@ -222,6 +239,8 @@
   
   .navigation-header {
     display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .navigation-header > * {

@@ -1,17 +1,39 @@
 import "./styles.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Calendar, { CalendarDayHeader } from "./calendar.js";
 import * as XLSX from "xlsx";
 import { getJsDateFromExcel } from "excel-date-to-js";
 
 export default function App() {
-  const [yearAndMonth, setYearAndMonth] = useState([2021, 9]);
+  const [yearAndMonth, setYearAndMonth] = useState([2022, 9]);
   const [items, setItems] = useState([]);
   const [stars, setStars] = useState([]);
   const [startM, setStarM] = useState();
+  const [dayElement, setDayElement] = useState();
   const [startY, setStarY] = useState();
   let foundData;
   let color;
+
+  //on init load the excel file
+
+  useEffect(() => {
+    var file = new File([""], window.location.origin + "/DataLunar.xlsx", { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+    fetch(window.location.origin + "/DataLunar.xlsx")
+      .then((res) => res.arrayBuffer())
+      .then((data1) => {
+        const workbook = XLSX.read(data1, { type: "buffer" });
+        const sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
+        const data = XLSX.utils.sheet_to_json(worksheet);
+
+        const workbook2 = XLSX.read(data1, { type: "buffer" });
+        const sheetStars = workbook2.SheetNames[1];
+        const worksheetStars = workbook2.Sheets[sheetStars];
+        const dataStars = XLSX.utils.sheet_to_json(worksheetStars);
+        setStars(dataStars);
+        setItems(data);
+      });
+  });
 
   const readExcel = (file) => {
     const promise = new Promise((resolve, reject) => {
@@ -30,6 +52,7 @@ export default function App() {
         const data = XLSX.utils.sheet_to_json(ws);
 
         resolve(data);
+        console.log(data);
       };
 
       fileReader.onerror = (error) => {
@@ -111,18 +134,20 @@ export default function App() {
 
   return (
     <div className="App">
-      <input
+      {/* <input
         type="file"
         onChange={(e) => {
           const file = e.target.files[0];
+          console.log(file);
           readExcel(file);
         }}
-      />
+      /> */}
       <Calendar
         yearAndMonth={yearAndMonth}
         onYearAndMonthChange={setYearAndMonth}
         starM={startM}
         starY={startY}
+        dayElement={dayElement}
         stars={stars}
         renderDay={(calendarDayObject) => (
 
@@ -132,17 +157,19 @@ export default function App() {
                       <div className={`c-container ${foundData.Dong_Gong}`}>
                         {setStarM(foundData.Month_Star_Centre)}
                         {setStarY(foundData.Year_Star_Centre)}
+                        {setDayElement(foundData.Year_Stem + foundData.Year_Branch + " " + foundData.Year_Element)}
                       <div className="c-item">
                         <CalendarDayHeader calendarDayObject={calendarDayObject} />
-                      <h4 className="day-element">{foundData.Day_Element}</h4>
-                      <h4>{foundData.Day_Stem}</h4>
-                      <h4 className="lunar">{foundData.Lunar}</h4>
-                      <h4>{foundData.Day_Branch}</h4>
-               
-                    <div className="c-child-items">
+                      <div className="c-child-items">
                       <h4 className={`${foundData.Officers}`}>{foundData.Officers}</h4>
                       <h4>{foundData.Breaker}</h4>
-                    </div>
+                      </div>
+                      <h4 className="lunar">{foundData.Lunar}</h4>
+                      <h4 className="addon">{foundData.Day_Stem}</h4>
+                      <h4 className="day-element">{foundData.Day_Element}</h4>
+                      <h4 className="addon">{foundData.Day_Branch}</h4>
+               
+                    
                       </div>
                       </div>
                    )}

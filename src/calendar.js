@@ -21,6 +21,7 @@ export default function Calendar({
   className = "",
   starM,
   starY,
+  dayElement,
   stars = [],
   yearAndMonth = [2021, 6],
   onYearAndMonthChange,
@@ -28,10 +29,13 @@ export default function Calendar({
 }) {
   const [someThing, setSomeThing] = useState();
   const [year, month] = yearAndMonth;
+  console.log(yearAndMonth)
   const starObjectMonth = stars.find((star) => star.Star_Centre === starM);
   const starObjectYear = stars.find((star) => star.Star_Centre === starY);
   console.log(starObjectMonth);
   console.log(starObjectYear);
+
+  let years = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   let currentMonthDays = createDaysForCurrentMonth(year, month);
   let previousMonthDays = createDaysForPreviousMonth(
     year,
@@ -83,12 +87,10 @@ export default function Calendar({
 
   return (
     <div className="calendar-root">
-      <div className="navigation-header">
-        <div className="month-nav-arrow-buttons">
+      {/* <div className="navigation-header">
+     
           <button onClick={handleMonthNavBackButtonClick}> prev </button>
-          <button onClick={handleMonthNavForwardButtonClick}>next</button>
-        </div>
-        <select
+          <select
           className="month-select"
           value={month}
           onChange={handleMonthSelect}
@@ -110,11 +112,16 @@ export default function Calendar({
             </option>
           ))}
         </select>
-      </div>
+          <button onClick={handleMonthNavForwardButtonClick}>next</button>
+     
+       
+      </div> */}
       <div className="calendar-header">
-                <h1>BAZICHIC’S GOOD DATES PLANNER</h1>
-                <h1>APRIL 2022</h1>
-                <h2>甲辰 WOOD DRAGON</h2>
+                <h2>BAZICHIC’S GOOD DATES PLANNER</h2>
+                <button onClick={handleMonthNavBackButtonClick}> prev </button>
+                <h2>{years[yearAndMonth[1]-1]} {yearAndMonth[0]}</h2>
+                <button onClick={handleMonthNavForwardButtonClick}>next</button>
+                <h2>{dayElement}</h2>
             </div>
       <div className="calendar-container">
         <div className="calendar-main">
